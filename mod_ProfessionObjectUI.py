@@ -1,17 +1,14 @@
 import tkinter as tk
 from tkinter import ttk
-#import mod_Database as db
-#from mod_Database import *
-# import mod_ProfessionObject as mpo
-# from mod_ProfessionObject import *
-
+import db2
+import mod_ProfessionObjects as pos
 
 class ProfessionObjectFrame(ttk.Frame):
     def __init__(self, parent):
         ttk.Frame.__init__(self, parent, padding="10 10 10 10")
         self.pack(fill=tk.BOTH, expand=True)
-        self.Profession = ["Test1", "Test2"]
-        self.gameMode = ["TestA", "TestB"]
+        self.Profession = db2.getProfession()
+        self.gameMode = db2.getGameMode()
 
         #Define string variable for the entry field
         self.buildName = tk.StringVar()
@@ -38,7 +35,10 @@ class ProfessionObjectFrame(ttk.Frame):
         self.BuildNameChoice = self.buildName.get()
         self.ProfessionChoice = self.professionCombo.get()
         self.GameModeChoice = self.gameModeCombo.get()
-        print(self.BuildNameChoice + "| " +self.ProfessionChoice + "| " + self.GameModeChoice)
+        db2.addBuildName(self.BuildNameChoice)
+        db2.addProfessionObject(self.ProfessionChoice, self.GameModeChoice)
+        print(self.BuildNameChoice + ": This Object was added to the ProfessionObjects table!")
+
 
 if __name__== "__main__":
     root = tk.Tk()
