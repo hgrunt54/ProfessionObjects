@@ -1,10 +1,14 @@
 import sqlite3
 from contextlib import closing
 
+# C:\SQLite\Databases\
 # connect to the database
-sqliteFile = 'C:\SQLite\Databases\Test.db'
+sqliteFile = 'C:/SQLite/Databases/Test.db'
 conn = sqlite3.connect(sqliteFile)
 c = conn.cursor()
+
+
+# ------------------THE FOLLOWING CODE IS FOR THE ProfessionObject Module-------------------------
 
 # create counter function for Professions
 def professionCounter():
@@ -100,4 +104,7 @@ def addProfessionObject(profession, gameMode):
     insert = '''INSERT INTO tbl_ProfessionObjects (ProfessionObjectID, BuildNameID, ProfessionID, GameModeID) VALUES (?, ?, ?, ?)'''
     c.execute(insert, (poid, bnid, pid, gmid))
     conn.commit()
+
+
+#-------------THE FOLLOWING CODE IS FOR THE ArmorObject Module-----------------
 

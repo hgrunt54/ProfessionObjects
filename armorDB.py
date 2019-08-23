@@ -111,3 +111,56 @@ def getPvERunes():
         runeList.append(rune[0])
         x += 1
     return runeList
+
+def getPvPArmorObjectID():
+    maxPvPAOid = '''SELECT MAX(PvPArmorObjectID) FROM tbl_PvPArmorObjects'''
+    c.execute(maxPvPAOid)
+    a = c.fetchone()
+    PvPAOid = a[0] + 1
+    return PvPAOid
+
+def getPvEArmorObjectID():
+    maxPvEAOid = '''SELECT MAX(PvEArmorObjectID) FROM tbl_PvEArmorObjects'''
+    c.execute(maxPvEAOid)
+    a = c.fetchone()
+    PvEAOid = a[0] + 1
+    return PvEAOid
+
+def getbuildTypeID(buildType):
+    BuildTypeID = '''SELECT BuildTypeID FROM tbl_BuildTypes WHERE BuildType is ?'''
+    c.execute(BuildTypeID, (buildType,))
+    a = c.fetchone()
+    bnid = a[0]
+    return bnid
+
+def getInsigniaID(insignia):
+    insigniaID = '''SELECT InsigniaID FROM tbl_Insignias WHERE Insignia is ?'''
+    c.execute(insigniaID, (insignia,))
+    a = c.fetchone()
+    insigid = a[0]
+    return insigid
+
+def getRuneID(rune):
+    RuneID = '''SELECT RuneID FROM tbl_Runes WHERE Rune is ?'''
+    c.execute(RuneID, (rune,))
+    a = c.fetchone()
+    rid = a[0]
+    return rid
+
+def addPvPArmorObject(buildType, insignia, rune):
+    PvPArmorObjectID = getPvPArmorObjectID()
+    buildTypeID = getbuildTypeID(buildType)
+    insigniaID = getInsigniaID(insignia)
+    runeID = getRuneID(rune)
+    insert = '''INSERT INTO tbl_PvPArmorObjects (PvPArmorObjectID, BuildTypeID, InsigniaID, RuneID) VALUES (?, ?, ?, ?)'''
+    c.execute(insert, (PvPArmorObjectID, buildTypeID, insigniaID, runeID))
+    conn.commit()
+
+def addPvEArmorObject(buildType, hI, sI, cI, gI, pI, bI, hR, sR, cR, gR, pR, bR):
+    PvEArmorObjectID = getPvEArmorObjectID()
+    buildTypeID = getbuildTypeID(buildType)
+    insert = '''INSERT INTO tbl_PvEArmorObjects (PvEArmorObjectID, BuildTypeID, HeadInsignia, ShoulderInsignia, 
+                ChestInsignia, GlovesInsignia, PantsInsignia, BootsInsignia, HeadRune, ShoulderRune, ChestRune,
+                GlovesRune, PantsRune, BootsRune) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'''
+    c.execute(insert, (PvEArmorObjectID, buildTypeID, hI, sI, cI, gI, pI, bI, hR, sR, cR, gR, pR, bR))
+    conn.commit()

@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
 import db2
-import mod_ProfessionObjects as pos
 
 class ProfessionObjectFrame(ttk.Frame):
     def __init__(self, parent):
@@ -37,7 +36,7 @@ class ProfessionObjectFrame(ttk.Frame):
         self.GameModeChoice = self.gameModeCombo.get()
         db2.addBuildName(self.BuildNameChoice)
         db2.addProfessionObject(self.ProfessionChoice, self.GameModeChoice)
-        print(self.BuildNameChoice + ": This Object was added to the ProfessionObjects table!")
+        print(self.BuildNameChoice + " was added to the ProfessionObjects table!")
 
 
 if __name__== "__main__":
