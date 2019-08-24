@@ -1,11 +1,6 @@
-#!user/bin/env/python3
-# This module is used for creating the SQL code that will be used in the ArmorObjectUI
-import sqlite3
-from contextlib import closing
+import db
 
-# connect to the database
-sqliteFile = 'C:/SQLite/Databases/Test.db'
-conn = sqlite3.connect(sqliteFile)
+conn = db.connect()
 c = conn.cursor()
 
 # Counter for BuildTypes
@@ -159,7 +154,7 @@ def addPvPArmorObject(buildType, insignia, rune):
 def addPvEArmorObject(buildType, hI, sI, cI, gI, pI, bI, hR, sR, cR, gR, pR, bR):
     PvEArmorObjectID = getPvEArmorObjectID()
     buildTypeID = getbuildTypeID(buildType)
-    insert = '''INSERT INTO tbl_PvEArmorObjects (PvEArmorObjectID, BuildTypeID, HeadInsignia, ShoulderInsignia, 
+    insert = '''INSERT INTO tbl_PvEArmorObjects (PvEArmorObjectID, BuildTypeID, HeadInsignia, ShoulderInsignia,
                 ChestInsignia, GlovesInsignia, PantsInsignia, BootsInsignia, HeadRune, ShoulderRune, ChestRune,
                 GlovesRune, PantsRune, BootsRune) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'''
     c.execute(insert, (PvEArmorObjectID, buildTypeID, hI, sI, cI, gI, pI, bI, hR, sR, cR, gR, pR, bR))

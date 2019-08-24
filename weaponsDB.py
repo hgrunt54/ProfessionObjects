@@ -1,11 +1,6 @@
-#!user/bin/env/python3
-# This module is used for creating the SQL code that will be used in the WeaponsObjectUI
-import sqlite3
-from contextlib import closing
+import db
 
-# connect to the database
-sqliteFile = 'C:/SQLite/Databases/Test.db'
-conn = sqlite3.connect(sqliteFile)
+conn = db.connect()
 c = conn.cursor()
 
 # The following is for the Inscriptions/Insignias

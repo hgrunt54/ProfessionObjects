@@ -1,12 +1,7 @@
-import sqlite3
-from contextlib import closing
+import db
 
-# C:\SQLite\Databases\
-# connect to the database
-sqliteFile = 'C:/SQLite/Databases/Test.db'
-conn = sqlite3.connect(sqliteFile)
+conn = db.connect()
 c = conn.cursor()
-
 
 # ------------------THE FOLLOWING CODE IS FOR THE ProfessionObject Module-------------------------
 
@@ -134,4 +129,3 @@ def addBuildName(buildName):
 
 
 #-------------THE FOLLOWING CODE IS FOR THE ArmorObject Module-----------------
-
