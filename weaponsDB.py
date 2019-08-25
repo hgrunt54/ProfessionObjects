@@ -79,19 +79,17 @@ def getPvESigils():
     return sigilList
 
 # The following code is used for the Weapon selections
-def mhWeaponCount():
-    weaponCount = '''SELECT * FROM tbl_Weapons
-                    WHERE MainHand IS 1 AND Mesmer IS 1'''
+def mhWeaponCount(profession):
+    weaponCount = 'SELECT * FROM tbl_Weapons WHERE MainHand IS 1 AND "%s" IS 1' % (profession)
     c.execute(weaponCount)
     weaponCounter = len(c.fetchall())
     return weaponCounter
 
-def getMHWeapons():
+def getMHWeapons(profession):
     weaponList = []
     x = 0
-    j = mhWeaponCount()
-    query1 = '''SELECT WeaponName FROM tbl_Weapons
-                WHERE MainHand IS 1 AND Mesmer IS 1'''
+    j = mhWeaponCount(profession)
+    query1 = 'SELECT WeaponName FROM tbl_Weapons WHERE MainHand IS 1 AND "%s" IS 1' % (profession)
     c.execute(query1)
     while x < j:
         weapon = c.fetchone()
@@ -99,22 +97,49 @@ def getMHWeapons():
         x += 1
     return weaponList
 
-def ohWeaponCount():
-    weaponCount = '''SELECT * FROM tbl_Weapons
-                    WHERE OffHand IS 1 AND Mesmer IS 1'''
+def ohWeaponCount(profession):
+    weaponCount = 'SELECT * FROM tbl_Weapons WHERE OffHand IS 1 AND "%s" IS 1' % (profession)
     c.execute(weaponCount)
     weaponCounter = len(c.fetchall())
     return weaponCounter
 
-def getOHWeapons():
+def getOHWeapons(profession):
     weaponList = []
     x = 0
-    j = ohWeaponCount()
-    query1 = '''SELECT WeaponName FROM tbl_Weapons
-                WHERE OffHand IS 1 AND Mesmer IS 1'''
+    j = ohWeaponCount(profession)
+    query1 = 'SELECT WeaponName FROM tbl_Weapons WHERE OffHand IS 1 AND "%s" IS 1' % (profession)
     c.execute(query1)
     while x < j:
         weapon = c.fetchone()
         weaponList.append(weapon[0])
         x += 1
     return weaponList
+
+def getPvPWeaponsObjectID():
+    maxPvPWOid = '''SELECT MAX(PvPWeaponsObjectID) FROM tbl_PvPWeaponsObjects'''
+    c.execute(maxPvPWOid)
+    a = c.fetchone()
+    PvPWOid = a[0] + 1
+    return PvPWOid
+
+def addPvPWeaponsObject(mh1, oh1, mh2, oh2, mh1s, oh1s, mh2s, oh2s):
+    PvPWeaponsObjectID = getPvPWeaponsObjectID()
+    insert = '''INSERT INTO tbl_PvPWeaponsObjects (PvPWeaponsObjectID, MainHand1, OffHand1, MainHand2, OffHand2,
+                MainHand1Sigil, OffHand1Sigil, MainHand2Sigil, OffHand2Sigil) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'''
+    c.execute(insert, (PvPWeaponsObjectID, mh1, oh1, mh2, oh2, mh1s, oh1s, mh2s, oh2s))
+    conn.commit()
+
+def getPvEWeaponsObjectID():
+    maxPvEWOid = '''SELECT MAX(PvEWeaponsObjectID) FROM tbl_PvEWeaponsObjects'''
+    c.execute(maxPvEWOid)
+    a = c.fetchone()
+    PvEWOid = a[0] + 1
+    return PvEWOid
+
+def addPvEWeaponsObject(mh1, oh1, mh2, oh2, mh1i, oh1i, mh2i, oh2i, mh1s, oh1s, mh2s, oh2s):
+    PvEWeaponsObjectID = getPvEWeaponsObjectID()
+    insert = '''INSERT INTO tbl_PvEWeaponsObjects (PvEWeaponsObjectID, MainHand1, OffHand1, MainHand2, OffHand2,
+                MainHand1Inscription, OffHand1Inscription, MainHand2Inscription, OffHand2Inscription,
+                MainHand1Sigil, OffHand1Sigil, MainHand2Sigil, OffHand2Sigil) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'''
+    c.execute(insert, (PvEWeaponsObjectID, mh1, oh1, mh2, oh2, mh1i, oh1i, mh2i, oh2i, mh1s, oh1s, mh2s, oh2s))
+    conn.commit()
