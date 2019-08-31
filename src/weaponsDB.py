@@ -4,7 +4,7 @@ import sqlite3
 from contextlib import closing
 
 # connect to the database
-sqliteFile = 'C:/SQLite/Databases/Test.db'
+sqliteFile = './../Test.db'
 conn = sqlite3.connect(sqliteFile)
 c = conn.cursor()
 

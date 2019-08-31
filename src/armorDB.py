@@ -4,7 +4,7 @@ import sqlite3
 from contextlib import closing
 
 # connect to the database
-sqliteFile = 'C:/SQLite/Databases/Test.db'
+sqliteFile = './../Test.db'
 conn = sqlite3.connect(sqliteFile)
 c = conn.cursor()
 
@@ -129,7 +129,7 @@ def addPvPArmorObject(insignia, rune):
 
 def addPvEArmorObject(hI, sI, cI, gI, pI, bI, hR, sR, cR, gR, pR, bR):
     PvEArmorObjectID = getPvEArmorObjectID()
-    insert = '''INSERT INTO tbl_PvEArmorObjects (PvEArmorObjectID, HeadInsignia, ShoulderInsignia, 
+    insert = '''INSERT INTO tbl_PvEArmorObjects (PvEArmorObjectID, HeadInsignia, ShoulderInsignia,
                 ChestInsignia, GlovesInsignia, PantsInsignia, BootsInsignia, HeadRune, ShoulderRune, ChestRune,
                 GlovesRune, PantsRune, BootsRune) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'''
     c.execute(insert, (PvEArmorObjectID, hI, sI, cI, gI, pI, bI, hR, sR, cR, gR, pR, bR))

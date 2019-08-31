@@ -4,7 +4,6 @@ from tkinter import ttk
 import db2
 import armorDB
 import weaponsDB
-import mainDB
 
 class MainApplication(tk.Frame):
     def __init__(self, parent, *args, **kwargs):

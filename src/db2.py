@@ -3,7 +3,7 @@ from contextlib import closing
 
 # C:\SQLite\Databases\
 # connect to the database
-sqliteFile = 'C:/SQLite/Databases/Test.db'
+sqliteFile = './../Test.db'
 conn = sqlite3.connect(sqliteFile)
 c = conn.cursor()
 
@@ -130,4 +130,3 @@ def addBuildName(buildName):
 
 
 #-------------THE FOLLOWING CODE IS FOR THE ArmorObject Module-----------------
-
