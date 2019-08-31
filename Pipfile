@@ -7,8 +7,6 @@ verify_ssl = true
 pylint = "*"
 
 [packages]
-sqlite3 = "*"
-tk = "*"
 
 [requires]
 python_version = "3.7"
