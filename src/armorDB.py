@@ -1,11 +1,6 @@
-#!user/bin/env/python3
-# This module is used for creating the SQL code that will be used in the ArmorObjectUI
-import sqlite3
-from contextlib import closing
+import db
 
-# connect to the database
-sqliteFile = './../Test.db'
-conn = sqlite3.connect(sqliteFile)
+conn = db.connect()
 c = conn.cursor()
 
 # Counter for the insignias
